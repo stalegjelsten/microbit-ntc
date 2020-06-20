@@ -23,10 +23,10 @@ Oppsett av variabler
 Bruk
 ====
 
-Micro:biten viser et sovende ansikt på LED-displayet når den ikke lagrer data. Under dataloggingen vil microbiten et kryss for å indikere at den er opptatt. Hvis LED-displayet viser en pil mot høyre er micro:biten i ferd med å bytte modus fra OpenLog til intern lagring eller vice versa.
+Micro:biten viser et sovende ansikt på LED-displayet når den ikke lagrer data. Under dataloggingen vil microbiten vise et kryss for å indikere at den er opptatt. Hvis LED-displayet viser en pil mot høyre er micro:biten i ferd med å bytte modus fra OpenLog til intern lagring eller vice versa.
 
-Hold nede a-knappen for å starte datalogging. Slipp knappen så snart du ser displayet har endret ikon.
+Hold nede a-knappen for å starte datalogging. Slipp knappen når displayet viser et kryss.
 
-Hold nede b-knappen for å avbryte avslutte lagringen av data. Slipp knappen så snart du ser displayet har endret ikon.
+Hold nede b-knappen for å avbryte avslutte lagringen av data. Slipp knappen når displayet viser et sovende ansikt.
 
-Hold nede a- og b-knappen samtidig for å bytte output fra OpenLog til intern lagring eller vice versa. Slipp knappene så fort du ser at displayet har endret ikon.
+Hold nede a- og b-knappen samtidig for å bytte output fra OpenLog til intern lagring eller vice versa. Slipp knappene så fort displayet viser en pil. 
