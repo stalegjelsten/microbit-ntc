@@ -2,32 +2,8 @@ from microbit import *
 import utime
 import math
 
-'''
-Temperaturavlesning med NTC og microbit
-=======================================
-
-Dette scriptet for microbits micropython leser temperaturen fra en NTC-sensor
-slik som ble levert til CanSat 2018 (se 
-https://www.narom.no/undervisningsressurser/the-cansat-book/v3/ ) og lagrer
-dataene som en .csv-fil på et eksternt SD-kort via SparkFun OpenLog eller 
-internt på microbiten sitt minne.
-
-Hold nede b-knappen for å avbryte avslutte lagringen av data
-
-Oppsett av variabler
-====================
-
-OpenLog = True hvis du ønsker å bruke SparkFun openlog til å lagre data fra 
-temperatursensoren. Dersom denne settes til False vil dataene lagres direkte
-på Microbiten som du kan hente ut ved å bruke verktøyet ufs (microfs) eller
-filer-verktøyet i Mu.
-
-R_ref er verdien (i Ohm) på resistansen som kobles i serie med NTC-sensoren
-
-Pin_NTC, TX og RX må korrespondere med riktige pins på microbiten
-'''
-
 OpenLog = False
+Use_OLED = True
 R_ref = 10e3 #10 kOhm resistans
 Pin_NTC = pin1 #pin for NTC sensor
 Pin_TX = pin15 #pin for sending av informasjon fra microbit --> sdkort
@@ -47,6 +23,12 @@ D = 6.383091e-8
 row = "" 
 icon = Image.ASLEEP
 
+if Use_OLED == True:
+    from ssd1306 import initialize, clear_oled
+    from ssd1306_text import add_text
+    initialize()
+    clear_oled()
+    
 def get_centigrade_temp():
     # les signal fra NTC og returner temperaturen i grader celsius
     NTC_read = Pin_NTC.read_analog()
@@ -58,10 +40,10 @@ def get_centigrade_temp():
 while True:
     if OpenLog == True:
         temp = round(get_centigrade_temp(),2)
-        time = utime.ticks_ms()
+        time = round(utime.ticks_ms()/1000,1)
         if button_a.is_pressed() and not button_b.is_pressed():
             uart.init(baudrate=9600, tx=Pin_TX, rx=Pin_RX)
-            uart.write("Time;Temp (NTC);Temp mbit\n")
+            uart.write("Time;Temp (NTC)\n")
             icon = Image.NO
         elif button_b.is_pressed() and not button_a.is_pressed():
             uart.init(baudrate=115200)
@@ -69,8 +51,11 @@ while True:
         elif button_a.is_pressed() and button_b.is_pressed():
             OpenLog = False
             icon = Image.ARROW_E
-        row = str(time) + ";" + str(temp) + ";" + str(temperature()) + "\n"
+        row = str(time) + ";" + str(temp) + "\n"
         uart.write(row)
+        if Use_OLED == True:
+            clear_oled()
+            add_text(0,1,row)
         display.show(icon, delay=400, clear=True)
     elif OpenLog == False:
         if button_a.is_pressed() and not button_b.is_pressed():
@@ -78,9 +63,13 @@ while True:
             with open('data.csv', 'w') as datafile:
                 while not button_b.is_pressed():
                     temp = round(get_centigrade_temp(),2)
-                    time = utime.ticks_ms()
-                    datafile.write('{};{};{}\n'.format(time,temp,temperature()))
+                    time = round(utime.ticks_ms()/1000,2)
+                    datafile.write('{};{}\n'.format(time,temp))
                     display.show(icon, delay=400,clear=True)
+                    if Use_OLED == True:
+                        clear_oled()
+                        row = str(time) + ";" + str(temp)
+                        add_text(0,1,row)
             icon = Image.YES
         if button_a.is_pressed() and button_b.is_pressed():
             OpenLog = True
