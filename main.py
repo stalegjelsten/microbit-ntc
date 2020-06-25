@@ -3,7 +3,7 @@ import utime
 import math
 
 OpenLog = False
-Use_OLED = True
+Use_OLED = False
 R_ref = 10e3 #10 kOhm resistans
 Pin_NTC = pin1 #pin for NTC sensor
 Pin_TX = pin15 #pin for sending av informasjon fra microbit --> sdkort
