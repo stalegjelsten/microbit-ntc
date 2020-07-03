@@ -3,7 +3,7 @@ import utime
 import math
 
 OpenLog = False
-Use_OLED = True
+Use_OLED = False
 R_ref = 10e3 #10 kOhm resistans
 Pin_NTC = pin1 #pin for NTC sensor
 Pin_TX = pin15 #pin for sending av informasjon fra microbit --> sdkort
@@ -36,6 +36,8 @@ def writing_to(destination):
     clear_oled()
     add_text(0,0,"Skriver til:")
     add_text(0,1,destination)
+    sleep(2000)
+    clear_oled()
     return
 
 if Use_OLED == True:
