@@ -4,6 +4,8 @@ import math
 
 OpenLog = False
 Use_OLED = False
+internt_filnavn = "data.csv"
+
 R_ref = 10e3 #10 kOhm resistans
 Pin_NTC = pin1 #pin for NTC sensor
 Pin_TX = pin15 #pin for sending av informasjon fra microbit --> sdkort
@@ -53,10 +55,13 @@ if Use_OLED == True:
 while True:
     if OpenLog == True:
         if button_a.is_pressed() and not button_b.is_pressed():
+            # opprette tilkobling til OpenLog og skrive overskriftsrad
             uart.init(baudrate=9600, tx=Pin_TX, rx=Pin_RX)
             uart.write("Time;Temp (NTC)\n")
             icon = Image.NO
             while not button_b.is_pressed():
+                # finner temperatur og tid og skriver verdiene som en rad
+                # til logfila i OpenLog
                 temp = round(get_centigrade_temp(),2)
                 time = round(utime.ticks_ms()/1000,1)
                 row = str(time) + ";" + str(temp)
@@ -65,13 +70,18 @@ while True:
                     clear_oled()
                     add_text(0,1,row)
                 display.show(icon, delay=400, clear=True)
-            uart.init(baudrate=115200) # restore Python console
+            # avslutter tilkoblinga til openlog og gjenoppretter mulighet for 
+            # tilkobling til PC
+            uart.init(baudrate=115200)
             icon = Image.YES
-            clear_oled()
+            if Use_OLED == True:
+                clear_oled()
 
         elif button_a.is_pressed() and button_b.is_pressed():
+            # bytt lagringsmodus hvis begge knappene blir trykket ned
             OpenLog = False
             icon = Image.ARROW_E
+            display.show(icon, delay=400, clear=True)
             if Use_OLED == True:
                 writing_to("Internminne")
 
@@ -79,10 +89,12 @@ while True:
 
     elif OpenLog == False:
         if button_a.is_pressed() and not button_b.is_pressed():
+            # åpner filen spesifisert i internt_filnavn og skriver til den
             icon = Image.NO
-            with open('data.csv', 'w') as datafile:
+            with open(internt_filnavn, 'w') as datafile:
                 datafile.write("Time; Temp (NTC)\n")
                 while not button_b.is_pressed():
+                    # hent temperatur og tidsverdier og skriv til filen
                     temp = round(get_centigrade_temp(),2)
                     time = round(utime.ticks_ms()/1000,1)
                     datafile.write('{};{}\n'.format(time,temp))
@@ -92,10 +104,14 @@ while True:
                         row = str(time) + ";" + str(temp)
                         add_text(0,1,row)
             icon = Image.YES
+            if Use_OLED == True:
+                clear_oled()
 
         if button_a.is_pressed() and button_b.is_pressed():
+            # bytt lagringsmodus hvis begge knappene blir trykket ned
             OpenLog = True
             icon = Image.ARROW_E
+            display.show(icon, delay=400, clear=True)
             if Use_OLED == True:
                 writing_to("OpenLog")
 
