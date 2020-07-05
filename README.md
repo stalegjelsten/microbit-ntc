@@ -1,6 +1,8 @@
 # Temperaturmåling med micro:bit og NTC sensor
 
-I denne repoen finner du to skript lar deg måle og registrere temperaturer med en NTC-sensor og micro:bit. Dataene kan lagres direkte i filsystemet til micro:biten eller på et eksternt minnekort ved hjelp av en [SparkFun OpenLog](https://learn.sparkfun.com/tutorials/openlog-hookup-guide). På grunn av plassbegrensninger på micro:biten er du nødt til å velge om du ønsker å bruke skriptet som skriver til micro:biten eller til minnekort.
+I denne repoen finner du to skript lar deg måle og registrere temperaturer med en NTC-sensor og micro:bit. Dataene kan lagres [direkte i filsystemet](#oppsett-for-intern-lagring-på-microbit) til micro:biten eller på [et eksternt minnekort](#oppsett-for-lagring-til-openlog) ved hjelp av en [SparkFun OpenLog](https://learn.sparkfun.com/tutorials/openlog-hookup-guide). På grunn av plassbegrensninger på micro:biten er du nødt til å velge om du ønsker å bruke skriptet som skriver til micro:biten eller til minnekort.
+
+De lagrede dataene kan [importeres til f.eks. Microsoft Excel](#analysere-data-i-microsoft-excel) for videre analyse
 
 Skriptene er tilpasset NTC-termistoren som ble levert til CanSat 2018 (se <https://www.narom.no/undervisningsressurser/the-cansat-book/v3/> )
 
