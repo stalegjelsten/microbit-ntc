@@ -10,7 +10,7 @@ Skriptene er tilpasset NTC-termistoren som ble levert til CanSat 2018 (se <https
 
 ### Oppkobling for intern lagring på micro:bit
 
-![Fritzing schematic](microbit-ntc-schem.png)
+![Fritzing schematic](img/microbit-ntc-schem.png)
 
 Koble opp kretsen slik koblingsskjemaet over viser (du kan også se det i nedre høyre hjørne av figuren lenger nede).
 
@@ -40,7 +40,7 @@ Koble micro:bit til PCen og åpne [Mu](https://codewith.mu/en/). Trykk på `File
 
 ### Oppkobling for lagring til OpenLog og bruk av OLED
 
-![Fritzing breadboard circuit diagram](microbit-ntc-fritzing.png)
+![Fritzing breadboard circuit diagram](img/microbit-ntc-fritzing.png)
 
 Koble opp kretsen slik figuren viser. Det kan være lurt å sørge for at strømmen ikke har for lang vei NTCen og OpenLogen. Begge er ømfintlige for små spenningsvariasjoner. Jeg har opplevd bedre resultater ved å koble VCC-kontakten på OpenLog direkte til en av 3,3 V pinnene på micro:biten. 
 
@@ -67,6 +67,6 @@ Micro:biten viser et sovende ansikt på LED-displayet når den ikke lagrer data.
 
 Kopier dataene dine fra tekstfila eller .csv-fila til Microsoft Excel. Marker cellene med data og velg `Tekst til kolonner` fra `Data`-fanen. Se skjermbildet.
 
-![Excel skjermbilde](excel-screenshot.png)
+![Excel skjermbilde](img/excel-screenshot.png)
 
 Du får nå opp en veiviser som går gjennom tre steg. I det første steget bekrefter du at dataene dine er adskilt med skilletegn. I neste steg markerer du at dataene er adskilt med semikolon. I trinn 3 av 3 er det viktig at du trykker `Avansert` og bytter ut desimalskilletegnet fra komma til punktum. Trykk fullfør, så skal dataene dine vises i hver sin kolonne.
