@@ -3,26 +3,26 @@ import utime
 import math
 import os
 
-internt_filnavn = "data" #første del av filnavnet
-sleeptime = 9380 # det tar omtrent 620 ms å gjennomføre syklusen
-                 # slik at en sleeptime på 380 vil gi omtrent 1 sek 
-                 # mellom hver måling. OBS! Micro:bit har kun plass til
-                 # omtrent 2200 måleverdier i sitt minne i tillegg til dette
-                 # programmet. Verdi i millisekunder
+internt_filnavn = "data"    # første del av filnavnet
+sleeptime = 9380    # det tar omtrent 620 ms å gjennomføre syklusen
+                    # slik at en sleeptime på 380 vil gi omtrent 1 sek
+                    # mellom hver måling. OBS! Micro:bit har kun plass til
+                    # omtrent 2200 måleverdier i sitt minne i tillegg til dette
+                    # programmet. Verdi i millisekunder
 
-R_ref = 10e3 #10 kOhm resistans kobles i serie med NTC
-Pin_NTC = pin1 #pin for NTC sensor
+R_ref = 10e3    # 10 kOhm resistans kobles i serie med NTC
+Pin_NTC = pin1  # pin for NTC sensor
 
 # Steinhart og Hart sin formel for temperatur fra NTC er gitt ved
 # T = (A + B * ln(R/R_ref) + C * ln(R/R_ref)^2 + D * ln(R/R_ref)^3
 # Verdiene nedenfor gjelder for B_25/85 = 3977
 
-A = 3.354016e-3 
+A = 3.354016e-3
 B = 2.569850e-4
 C = 2.620131e-6
 D = 6.383091e-8
 
-row = "" 
+row = ""
 icon = Image.ASLEEP
 filnummer = 0
 
@@ -35,11 +35,11 @@ def get_centigrade_temp():
     return temp
 
 while True:
-    if button_a.is_pressed() and not button_b.is_pressed():
+    if button_a.is_pressed():
         # åpner filen spesifisert i internt_filnavn og skriver til den
         icon = Image.NO
         success = False
-        while success == False:
+        while not success:
             # finner neste ledige filnavn
             try:
                 # prøver å åpne filnavnet med gjeldende filnummer
@@ -49,13 +49,14 @@ while True:
                 filnummer = filnummer + 1
             except OSError:
                 # hvis filen ikke finnes så avslutter vi letingen
-                success = True 
-                display.scroll("Filnavn: " + internt_filnavn + str(filnummer) + ".csv")
+                success = True
+                display.scroll("Filnavn: " + internt_filnavn + \
+                    str(filnummer) + ".csv")
 
         with open(internt_filnavn + str(filnummer) + ".csv", 'w') as datafile:
             # åpner den ledige filen for skriving
             datafile.write("Time; Temp (NTC)\n")
-            while not button_b.is_pressed():
+            while not button_b.was_pressed():
                 # hent temperatur og tidsverdier og skriv til filen
                 temp = round(get_centigrade_temp(),2)
                 time = round(utime.ticks_ms()/1000,1)
@@ -84,5 +85,5 @@ while True:
                     filnummer = filnummer + 1
                 except OSError:
                     # hvis filen ikke finnes så avslutter vi letingen
-                    success = True 
+                    success = True
                     display.scroll("Slettet alt")
