@@ -1,7 +1,7 @@
 from microbit import *
+from math import log
+from os import remove
 import utime
-import math
-import os
 
 internt_filnavn = "data"    # første del av filnavnet
 sleeptime = 9380    # det tar omtrent 620 ms å gjennomføre syklusen
@@ -30,7 +30,7 @@ def get_centigrade_temp():
     # les signal fra NTC og returner temperaturen i grader celsius
     NTC_read = Pin_NTC.read_analog()
     R_NTC = R_ref * NTC_read / (1023 - NTC_read)
-    log_NTC = math.log(R_NTC/R_ref)
+    log_NTC = log(R_NTC/R_ref)
     temp = 1/(A + B * log_NTC + C * log_NTC ** 2 + D * log_NTC ** 3)-273.15
     return temp
 
@@ -81,7 +81,7 @@ while True:
                     # hvis filen finnes så lukkes den, og vi øker filnummer +1
                     f = open(internt_filnavn + str(filnummer) + ".csv", "r")
                     f.close()
-                    os.remove(internt_filnavn + str(filnummer) + ".csv")
+                    remove(internt_filnavn + str(filnummer) + ".csv")
                     filnummer = filnummer + 1
                 except OSError:
                     # hvis filen ikke finnes så avslutter vi letingen

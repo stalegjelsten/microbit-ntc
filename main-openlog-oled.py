@@ -1,6 +1,6 @@
 from microbit import *
+from math import log
 import utime
-import math
 
 Use_OLED = True
 sleeptime = 9500  # ekstra tid i millisekunder mellom hver måling
@@ -31,7 +31,7 @@ def get_centigrade_temp():
     # les signal fra NTC og returner temperaturen i grader celsius
     NTC_read = Pin_NTC.read_analog()
     R_NTC = R_ref * NTC_read / (1023 - NTC_read)
-    log_NTC = math.log(R_NTC/R_ref)
+    log_NTC = log(R_NTC/R_ref)
     temp = 1/(A + B * log_NTC + C * log_NTC ** 2 + D * log_NTC ** 3)-273.15
     return temp
 

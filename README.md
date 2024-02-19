@@ -16,7 +16,7 @@ Koble opp kretsen slik koblingsskjemaet over viser (du kan også se det i nedre 
 
 ### Oppsett av skript for intern lagring
 
-Last ned skriptet `main-internal-recording.py`. Dette skriver data direkte til minnet på micro:biten. Hvis jeg har regnet riktig så er det plass til omtrent 2200 måleverdier i micro:biten sitt lagringssystem. Åpne skriptet i [Mu](https://codewith.mu/en/) og gjør nødvendige tilpasninger:
+Last ned skriptet `main-internal-recording.py`. Dette skriver data direkte til minnet på micro:biten. Hvis jeg har regnet riktig så er det plass til omtrent 2200 måleverdier i micro:biten sitt lagringssystem (*Oppdatering 2024-02-19: Det kan være at det er plass til litt flere måleverdier siden skriptet ikke lenger importerer like mange funksjoner*). Åpne skriptet i [Mu](https://codewith.mu/en/) og gjør nødvendige tilpasninger:
 
 - sleeptime er intervallet mellom hver måling i millisekunder
 - filnavn er filnavnet til fila med måleresultater på micro:biten
